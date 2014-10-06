@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="biz.fz5.app.kumquat.service.ContactGroupLocalService" class="biz.fz5.app.kumquat.service.impl.ContactGroupLocalServiceImpl" />
+	<bean id="biz.fz5.app.kumquat.service.persistence.ContactGroupPersistence" class="biz.fz5.app.kumquat.service.persistence.ContactGroupPersistenceImpl" parent="basePersistence" />
+	<bean id="biz.fz5.app.kumquat.service.ContactInfoLocalService" class="biz.fz5.app.kumquat.service.impl.ContactInfoLocalServiceImpl" />
+	<bean id="biz.fz5.app.kumquat.service.persistence.ContactInfoPersistence" class="biz.fz5.app.kumquat.service.persistence.ContactInfoPersistenceImpl" parent="basePersistence" />
+</beans>

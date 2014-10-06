@@ -1,0 +1,72 @@
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+
+<service-builder package-path="biz.fz5.app.kumquat">
+	<namespace>Kumquat</namespace>
+	<entity name="ContactInfo" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="contactInfoId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="firstName" type="String" />
+		<column name="lastName" type="String" />
+		<column name="telephoneNumber" type="String" />
+		<column name="emailAddress" type="String" />
+		<column name="agreedToPrivacy" type="boolean" />
+		
+		<column name="contactGroupId" type="long"/>
+	
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="createDate" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="ContactGroup" return-type="Collection">
+			<finder-column name="contactGroupId" />
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+		</finder>
+		
+		<finder name="ContactGroupEmail" return-type="Collection">
+			<finder-column name="contactGroupId" />
+			<finder-column name="emailAddress" />
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+		</finder>
+		
+	</entity>
+	
+	<entity name="ContactGroup" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="contactGroupId" type="long" primary="true" />
+		
+		<!-- Other fields -->
+		
+		<column name="companyId" type="long" />
+		<column name="groupId" type="long" />
+		<column name="name" type="String" />
+		<column name="description" type="String" />		
+		
+		<finder name="All" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="groupId" />
+		</finder>
+		
+	</entity>
+</service-builder>
