@@ -45,6 +45,25 @@
 
 <liferay-theme:defineObjects />
 
+<%
+PortletPreferences preferences = renderRequest.getPreferences();
+
+String portletResource = ParamUtil.getString(request, "portletResource");
+
+if (Validator.isNotNull(portletResource)) {
+	preferences = PortletPreferencesFactoryUtil.getPortletSetup(request, portletResource);
+}
+
+long contactGroupId = -1;
+ContactGroup contactGroup = null;
+try {
+	contactGroupId = Long.parseLong(preferences.getValue("contactGroupId",""));
+	contactGroup = ContactGroupLocalServiceUtil.getContactGroup(contactGroupId);
+} catch (Exception e) {}
+
+    
+%>
+
 <% 
 List<ContactGroup> contactGroups = null;
 try {
@@ -62,7 +81,7 @@ try {
 	<liferay-portlet:actionURL portletConfiguration="true" var="configurationURL" />
 	<aui:form action="<%= configurationURL %>" method="post" name="fm">
 		<aui:fieldset label="">		
-			<aui:select name="contactGroupId">
+			<aui:select bean="<%=contactGroup%>" name="contactGroupId">
 				<% for (ContactGroup item : contactGroups) { %>
 					<aui:option  value="<%=item.getPrimaryKey() %>"><%=item.getName() %></aui:option>
 				<% } %>
