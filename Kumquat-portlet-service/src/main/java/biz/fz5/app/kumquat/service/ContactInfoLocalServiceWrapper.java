@@ -345,6 +345,23 @@ public class ContactInfoLocalServiceWrapper implements ContactInfoLocalService,
             groupId, companyId);
     }
 
+    @Override
+    public java.util.List<biz.fz5.app.kumquat.model.ContactInfo> search(
+        long companyId, long groupId, java.lang.String lastName,
+        java.lang.String emailAddress, boolean isAndOperator,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _contactInfoLocalService.search(companyId, groupId, lastName,
+            emailAddress, isAndOperator, orderByComparator);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.util.OrderByComparator getContactInfoOrderByComparator(
+        java.lang.String orderByCol, java.lang.String orderByType) {
+        return _contactInfoLocalService.getContactInfoOrderByComparator(orderByCol,
+            orderByType);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

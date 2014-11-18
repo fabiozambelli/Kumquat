@@ -331,6 +331,22 @@ public class ContactInfoLocalServiceUtil {
                    .exist(contactGroupId, emailAddress, groupId, companyId);
     }
 
+    public static java.util.List<biz.fz5.app.kumquat.model.ContactInfo> search(
+        long companyId, long groupId, java.lang.String lastName,
+        java.lang.String emailAddress, boolean isAndOperator,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService()
+                   .search(companyId, groupId, lastName, emailAddress,
+            isAndOperator, orderByComparator);
+    }
+
+    public static com.liferay.portal.kernel.util.OrderByComparator getContactInfoOrderByComparator(
+        java.lang.String orderByCol, java.lang.String orderByType) {
+        return getService()
+                   .getContactInfoOrderByComparator(orderByCol, orderByType);
+    }
+
     public static void clearService() {
         _service = null;
     }

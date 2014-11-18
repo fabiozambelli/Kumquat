@@ -293,4 +293,15 @@ public interface ContactInfoLocalService extends BaseLocalService,
         long groupId, long companyId)
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.util.List<biz.fz5.app.kumquat.model.ContactInfo> search(
+        long companyId, long groupId, java.lang.String lastName,
+        java.lang.String emailAddress, boolean isAndOperator,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public com.liferay.portal.kernel.util.OrderByComparator getContactInfoOrderByComparator(
+        java.lang.String orderByCol, java.lang.String orderByType);
 }

@@ -50,6 +50,10 @@ public class ContactInfoLocalServiceClp implements ContactInfoLocalService {
     private String[] _methodParameterTypes20;
     private String _methodName21;
     private String[] _methodParameterTypes21;
+    private String _methodName22;
+    private String[] _methodParameterTypes22;
+    private String _methodName23;
+    private String[] _methodParameterTypes23;
 
     public ContactInfoLocalServiceClp(
         InvokableLocalService invokableLocalService) {
@@ -161,6 +165,19 @@ public class ContactInfoLocalServiceClp implements ContactInfoLocalService {
 
         _methodParameterTypes21 = new String[] {
                 "long", "java.lang.String", "long", "long"
+            };
+
+        _methodName22 = "search";
+
+        _methodParameterTypes22 = new String[] {
+                "long", "long", "java.lang.String", "java.lang.String",
+                "boolean", "com.liferay.portal.kernel.util.OrderByComparator"
+            };
+
+        _methodName23 = "getContactInfoOrderByComparator";
+
+        _methodParameterTypes23 = new String[] {
+                "java.lang.String", "java.lang.String"
             };
     }
 
@@ -809,5 +826,74 @@ public class ContactInfoLocalServiceClp implements ContactInfoLocalService {
         }
 
         return ((Boolean) returnObj).booleanValue();
+    }
+
+    @Override
+    public java.util.List<biz.fz5.app.kumquat.model.ContactInfo> search(
+        long companyId, long groupId, java.lang.String lastName,
+        java.lang.String emailAddress, boolean isAndOperator,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName22,
+                    _methodParameterTypes22,
+                    new Object[] {
+                        companyId,
+                        
+                    groupId,
+                        
+                    ClpSerializer.translateInput(lastName),
+                        
+                    ClpSerializer.translateInput(emailAddress),
+                        
+                    isAndOperator,
+                        
+                    ClpSerializer.translateInput(orderByComparator)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<biz.fz5.app.kumquat.model.ContactInfo>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.liferay.portal.kernel.util.OrderByComparator getContactInfoOrderByComparator(
+        java.lang.String orderByCol, java.lang.String orderByType) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName23,
+                    _methodParameterTypes23,
+                    new Object[] {
+                        ClpSerializer.translateInput(orderByCol),
+                        
+                    ClpSerializer.translateInput(orderByType)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.portal.kernel.util.OrderByComparator) ClpSerializer.translateOutput(returnObj);
     }
 }

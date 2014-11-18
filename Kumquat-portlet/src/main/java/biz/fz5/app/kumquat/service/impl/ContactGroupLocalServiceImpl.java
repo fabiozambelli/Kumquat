@@ -1,13 +1,13 @@
 package biz.fz5.app.kumquat.service.impl;
 
+import biz.fz5.app.kumquat.model.ContactGroup;
+import biz.fz5.app.kumquat.service.ContactGroupLocalServiceUtil;
+import biz.fz5.app.kumquat.service.base.ContactGroupLocalServiceBaseImpl;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 
 import java.util.List;
-
-import biz.fz5.app.kumquat.model.ContactGroup;
-import biz.fz5.app.kumquat.service.ContactGroupLocalServiceUtil;
-import biz.fz5.app.kumquat.service.base.ContactGroupLocalServiceBaseImpl;
 
 /**
  * The implementation of the contact group local service.
