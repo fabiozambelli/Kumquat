@@ -121,7 +121,7 @@ public class ContactInfoLocalServiceImpl extends ContactInfoLocalServiceBaseImpl
 	}
 	
 	
-	public List<ContactInfo> search (long companyId, long groupId , String lastName,
+	public List<ContactInfo> search (long companyId, long groupId , long contactGroupId, String lastName, 
 			String emailAddress, boolean isAndOperator, OrderByComparator orderByComparator) throws SystemException {
 		
 		DynamicQuery query = DynamicQueryFactoryUtil.forClass(ContactInfo.class);
@@ -153,6 +153,7 @@ public class ContactInfoLocalServiceImpl extends ContactInfoLocalServiceBaseImpl
 		
 		query.add(PropertyFactoryUtil.forName("groupId").eq(groupId));
 		query.add(PropertyFactoryUtil.forName("companyId").eq(companyId));
+		query.add(PropertyFactoryUtil.forName("contactGroupId").eq(contactGroupId));
 		
 		String[] fields = orderByComparator.getOrderByFields();
 		

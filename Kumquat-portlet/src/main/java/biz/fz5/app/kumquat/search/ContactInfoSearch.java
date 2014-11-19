@@ -29,8 +29,10 @@ public class ContactInfoSearch extends SearchContainer<ContactInfo> {
 	static {
 		headerNames.add("last-name");
 		headerNames.add("email-address");
+		headerNames.add("contact-group-id");
 		orderableHeaders.put("last-name", "last-name");
 		orderableHeaders.put("email-address", "email-address");
+		orderableHeaders.put("contact-group-id", "contact-group-id");
 		
 	}
 	
@@ -53,6 +55,8 @@ public class ContactInfoSearch extends SearchContainer<ContactInfo> {
 				ContactInfoDisplayTerms.EMAIL_ADDRESS, displayTerms.getEmailAddress());			
 		iteratorURL.setParameter(
 				ContactInfoDisplayTerms.LAST_NAME, displayTerms.getLastName());
+		iteratorURL.setParameter(
+				ContactInfoDisplayTerms.CONTACT_GROUP_ID, Long.toString(displayTerms.getContactGroupId()));
 			
 		try {
 			PortalPreferences preferences =

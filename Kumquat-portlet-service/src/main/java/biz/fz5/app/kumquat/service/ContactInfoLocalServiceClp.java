@@ -170,7 +170,7 @@ public class ContactInfoLocalServiceClp implements ContactInfoLocalService {
         _methodName22 = "search";
 
         _methodParameterTypes22 = new String[] {
-                "long", "long", "java.lang.String", "java.lang.String",
+                "long", "long", "long", "java.lang.String", "java.lang.String",
                 "boolean", "com.liferay.portal.kernel.util.OrderByComparator"
             };
 
@@ -830,8 +830,9 @@ public class ContactInfoLocalServiceClp implements ContactInfoLocalService {
 
     @Override
     public java.util.List<biz.fz5.app.kumquat.model.ContactInfo> search(
-        long companyId, long groupId, java.lang.String lastName,
-        java.lang.String emailAddress, boolean isAndOperator,
+        long companyId, long groupId, long contactGroupId,
+        java.lang.String lastName, java.lang.String emailAddress,
+        boolean isAndOperator,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
@@ -843,6 +844,8 @@ public class ContactInfoLocalServiceClp implements ContactInfoLocalService {
                         companyId,
                         
                     groupId,
+                        
+                    contactGroupId,
                         
                     ClpSerializer.translateInput(lastName),
                         

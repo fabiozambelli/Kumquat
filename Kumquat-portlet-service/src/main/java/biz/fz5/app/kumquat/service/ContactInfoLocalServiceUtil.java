@@ -332,13 +332,14 @@ public class ContactInfoLocalServiceUtil {
     }
 
     public static java.util.List<biz.fz5.app.kumquat.model.ContactInfo> search(
-        long companyId, long groupId, java.lang.String lastName,
-        java.lang.String emailAddress, boolean isAndOperator,
+        long companyId, long groupId, long contactGroupId,
+        java.lang.String lastName, java.lang.String emailAddress,
+        boolean isAndOperator,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getService()
-                   .search(companyId, groupId, lastName, emailAddress,
-            isAndOperator, orderByComparator);
+                   .search(companyId, groupId, contactGroupId, lastName,
+            emailAddress, isAndOperator, orderByComparator);
     }
 
     public static com.liferay.portal.kernel.util.OrderByComparator getContactInfoOrderByComparator(

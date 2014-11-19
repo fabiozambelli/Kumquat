@@ -10,6 +10,7 @@ public class ContactInfoSearchTerms extends ContactInfoDisplayTerms {
 		super(portletRequest);
 		emailAddress = DAOParamUtil.getString(portletRequest, EMAIL_ADDRESS);		
 		lastName = DAOParamUtil.getString(portletRequest, LAST_NAME);
+		contactGroupId = DAOParamUtil.getLong(portletRequest, CONTACT_GROUP_ID);
 	}
 
 }

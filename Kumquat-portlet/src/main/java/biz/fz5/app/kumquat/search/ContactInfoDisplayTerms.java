@@ -11,16 +11,21 @@ public class ContactInfoDisplayTerms extends DisplayTerms {
 
 	public static final String LAST_NAME = "lastName";
 	
+	public static final String CONTACT_GROUP_ID = "contactGroupId";
+	
 	public ContactInfoDisplayTerms(PortletRequest portletRequest) {
 		super(portletRequest);
 
 		emailAddress = ParamUtil.getString(portletRequest, EMAIL_ADDRESS);		
 		lastName = ParamUtil.getString(portletRequest, LAST_NAME);
+		contactGroupId = ParamUtil.getLong(portletRequest, CONTACT_GROUP_ID);
 	}
 	
 	protected String emailAddress;
 	
 	protected String lastName;
+	
+	protected long contactGroupId;
 
 	public String getEmailAddress() {
 		return emailAddress;
@@ -38,6 +43,12 @@ public class ContactInfoDisplayTerms extends DisplayTerms {
 		this.lastName = lastName;
 	}
 
-	
+	public long getContactGroupId() {
+		return contactGroupId;
+	}
+
+	public void setContactGroupId(long contactGroupId) {
+		this.contactGroupId = contactGroupId;
+	}
 
 }

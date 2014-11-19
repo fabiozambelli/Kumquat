@@ -168,7 +168,7 @@ public class ContactInfoLocalServiceClpInvoker {
         _methodName45 = "search";
 
         _methodParameterTypes45 = new String[] {
-                "long", "long", "java.lang.String", "java.lang.String",
+                "long", "long", "long", "java.lang.String", "java.lang.String",
                 "boolean", "com.liferay.portal.kernel.util.OrderByComparator"
             };
 
@@ -314,10 +314,11 @@ public class ContactInfoLocalServiceClpInvoker {
                 Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
             return ContactInfoLocalServiceUtil.search(((Long) arguments[0]).longValue(),
                 ((Long) arguments[1]).longValue(),
-                (java.lang.String) arguments[2],
+                ((Long) arguments[2]).longValue(),
                 (java.lang.String) arguments[3],
-                ((Boolean) arguments[4]).booleanValue(),
-                (com.liferay.portal.kernel.util.OrderByComparator) arguments[5]);
+                (java.lang.String) arguments[4],
+                ((Boolean) arguments[5]).booleanValue(),
+                (com.liferay.portal.kernel.util.OrderByComparator) arguments[6]);
         }
 
         if (_methodName46.equals(name) &&
