@@ -18,9 +18,14 @@
 <%@ page import="biz.fz5.app.kumquat.model.ContactInfo" %>
 <%@ page import="biz.fz5.app.kumquat.model.ContactGroup" %>
 
+<%@ page import="biz.fz5.app.kumquat.search.ContactInfoSearch" %>
+<%@ page import="biz.fz5.app.kumquat.search.ContactInfoSearchTerms" %>
+<%@ page import="biz.fz5.app.kumquat.search.ContactInfoDisplayTerms" %>
+
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="javax.portlet.PortletURL" %>
 
 <portlet:defineObjects />
 
@@ -55,8 +60,12 @@ catch (NoSuchFolderException nsfe) {
 <% 
 // contact group must be defined by user
 long contactGroupId = -1L;
-if (renderRequest.getAttribute("contactGroupId")!=null)
+if (renderRequest.getAttribute("contactGroupId")!=null) {
 	contactGroupId = (Long)renderRequest.getAttribute("contactGroupId");
+	renderRequest.getPortletSession().setAttribute("contactGroupId", contactGroupId);
+} else if (renderRequest.getPortletSession().getAttribute("contactGroupId")!=null) {
+	contactGroupId = (Long)renderRequest.getPortletSession().getAttribute("contactGroupId");
+}
 
 List<ContactGroup> contactGroups = null;
 try {
@@ -119,34 +128,56 @@ if (contactGroupId>-1) {
 				<aui:button-row>
 					<aui:button type="submit" value="contact-report-submit"/>				
 				</aui:button-row>		
-		</aui:form>
-		<p class="text-center"><em>items found : <%=cnts.size() %></em></p>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th><liferay-ui:message key="contact-report-table-column-date" /></th>
-					<th><liferay-ui:message key="contact-report-table-column-lastname" /></th>
-					<th><liferay-ui:message key="contact-report-table-column-firstname" /></th>			
-					<th><liferay-ui:message key="contact-report-table-column-email" /></th>
-					<th><liferay-ui:message key="contact-report-table-column-phone" /></th>
-				</tr>
-			</thead>
-			<tbody>
+		</aui:form>		
+		
 		<%
-		for (ContactInfo cnt : cnts) {
+		PortletURL portletURL = renderResponse.createRenderURL();
+		portletURL.setParameter("mvc", "/admin/view.jsp");
+		pageContext.setAttribute("portletURL", portletURL);
 		%>
-				<tr>
-					<td><%=dateFormat.format(cnt.getCreateDate())%></td>
-					<td><%=cnt.getLastName()%></td>
-					<td><%=cnt.getFirstName()%></td>			
-					<td><%=cnt.getEmailAddress()%></td>
-					<td><%=cnt.getTelephoneNumber()%></td>
-				</tr>
-		<%	
-		}
-		%>
-			</tbody>
-		</table>
+
+		<liferay-ui:search-container searchContainer="<%= new ContactInfoSearch(renderRequest, portletDisplay.getId(), portletURL)%>">
+	
+			<%			
+			ContactInfoSearchTerms searchTerms = (ContactInfoSearchTerms)searchContainer.getSearchTerms();	
+			ContactInfoDisplayTerms displayTerms = (ContactInfoDisplayTerms)searchContainer.getDisplayTerms();
+			
+			String lastName = null;
+			if ( (searchTerms.getKeywords()!=null)&&(!"".equals(searchTerms.getKeywords())) )
+				lastName = searchTerms.getKeywords();
+			else 
+				lastName = searchTerms.getLastName();
+			
+			String emailAddress = null;
+			if ( (searchTerms.getKeywords()!=null)&&(!"".equals(searchTerms.getKeywords())) )
+				emailAddress = searchTerms.getKeywords();
+			else 
+				emailAddress = searchTerms.getEmailAddress();			
+			List<ContactInfo> contacts = ContactInfoLocalServiceUtil.search(themeDisplay.getCompanyId(), themeDisplay.getSiteGroupIdOrLiveGroupId(), contactGroupId, lastName, emailAddress, searchTerms.isAndOperator(), searchContainer.getOrderByComparator());
+			%>
+		
+			<liferay-ui:search-container-results results="<%=contacts %>" total="<%=contacts.size() %>" />						
+				
+			<liferay-ui:search-container-row className="biz.fz5.app.kumquat.model.ContactInfo"
+				keyProperty="contactInfoId"
+				modelVar="contactInfo">
+				<portlet:renderURL var="rowURL">				
+					<portlet:param name="resourcePrimKey" value="<%= String.valueOf(contactInfo.getPrimaryKey()) %>"/>
+					<portlet:param name="backURL" value="<%=themeDisplay.getURLCurrent() %>"/>
+				</portlet:renderURL>
+				<liferay-ui:search-container-column-text name="create-date" value="<%=dateFormat.format(contactInfo.getCreateDate())%>"/>
+				<liferay-ui:search-container-column-text name="last-name" orderable="<%= true %>" property="lastName"/>
+				<liferay-ui:search-container-column-text name="first-name" property="firstName"/>
+				<liferay-ui:search-container-column-text name="email-address" orderable="<%= true %>" property="emailAddress"/>
+				<liferay-ui:search-container-column-text name="telephone-number" property="telephoneNumber"/>			
+			</liferay-ui:search-container-row>
+		
+			<liferay-ui:search-iterator/>
+			
+		</liferay-ui:search-container>	
+		
+	
+		
 
 	<% } else {  // if there is some contact %>
 	<p class="text-center"><em>no items found</em></p>
