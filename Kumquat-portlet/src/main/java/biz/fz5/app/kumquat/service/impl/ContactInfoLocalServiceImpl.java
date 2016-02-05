@@ -8,6 +8,8 @@ import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.service.ServiceContext;
 
@@ -15,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 import biz.fz5.app.kumquat.model.ContactInfo;
+import biz.fz5.app.kumquat.portlet.ContactsReportPortlet;
 import biz.fz5.app.kumquat.search.ContactInfoEmailAddressComparator;
 import biz.fz5.app.kumquat.search.ContactInfoLastNameComparator;
 import biz.fz5.app.kumquat.service.ContactInfoLocalServiceUtil;
@@ -40,6 +43,8 @@ public class ContactInfoLocalServiceImpl extends ContactInfoLocalServiceBaseImpl
      *
      * Never reference this interface directly. Always use {@link biz.fz5.app.kumquat.service.ContactInfoLocalServiceUtil} to access the contact info local service.
      */
+	
+	private static final Log _log = LogFactoryUtil.getLog(ContactInfoLocalServiceImpl.class);
 	
 	/**
 	 * Create a new contactInfo
@@ -124,6 +129,16 @@ public class ContactInfoLocalServiceImpl extends ContactInfoLocalServiceBaseImpl
 	public List<ContactInfo> search (long companyId, long groupId , long contactGroupId, String lastName, 
 			String emailAddress, boolean isAndOperator, OrderByComparator orderByComparator) throws SystemException {
 		
+		
+		_log.debug("companyId:"+companyId);
+		_log.debug("groupId:"+groupId);
+		_log.debug("contactGroupId:"+contactGroupId);
+		_log.debug("lastName:"+lastName);
+		_log.debug("emailAddress:"+emailAddress);
+		_log.debug("isAndOperator:"+isAndOperator);
+		_log.debug("orderByComparator:"+orderByComparator);
+		
+		
 		DynamicQuery query = DynamicQueryFactoryUtil.forClass(ContactInfo.class);
 		
 		Criterion lastNameCriterion = null;
@@ -184,6 +199,8 @@ public class ContactInfoLocalServiceImpl extends ContactInfoLocalServiceBaseImpl
 		}
 		else if (orderByCol.equals("email-address")) {
 			orderByComparator = new ContactInfoEmailAddressComparator(orderByAsc);
+		} else {
+			orderByComparator = new ContactInfoLastNameComparator(orderByAsc);
 		}
 		
 		return orderByComparator;

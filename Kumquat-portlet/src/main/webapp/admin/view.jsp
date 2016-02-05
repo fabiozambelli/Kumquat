@@ -136,6 +136,7 @@ if (contactGroupId>-1) {
 		pageContext.setAttribute("portletURL", portletURL);
 		%>
 
+<aui:form action="<%=portletURL.toString() %>" method="post">
 		<liferay-ui:search-container searchContainer="<%= new ContactInfoSearch(renderRequest, portletDisplay.getId(), portletURL)%>">
 	
 			<%			
@@ -156,7 +157,14 @@ if (contactGroupId>-1) {
 			List<ContactInfo> contacts = ContactInfoLocalServiceUtil.search(themeDisplay.getCompanyId(), themeDisplay.getSiteGroupIdOrLiveGroupId(), contactGroupId, lastName, emailAddress, searchTerms.isAndOperator(), searchContainer.getOrderByComparator());
 			%>
 		
-			<liferay-ui:search-container-results results="<%=contacts %>" total="<%=contacts.size() %>" />						
+			<liferay-ui:search-container-results results="<%=contacts %>" total="<%=contacts.size() %>" />	
+			
+			<liferay-ui:search-toggle buttonLabel="search" displayTerms="<%= displayTerms %>" id="toggle_id_product_search">
+				<aui:fieldset>
+					<aui:input name="<%= ContactInfoDisplayTerms.EMAIL_ADDRESS %>" value="<%= displayTerms.getEmailAddress() %>"/>
+					<aui:input name="<%= ContactInfoDisplayTerms.LAST_NAME %>" value="<%= displayTerms.getLastName() %>"/>			
+				</aui:fieldset>			
+			</liferay-ui:search-toggle>					
 				
 			<liferay-ui:search-container-row className="biz.fz5.app.kumquat.model.ContactInfo"
 				keyProperty="contactInfoId"
@@ -175,7 +183,7 @@ if (contactGroupId>-1) {
 			<liferay-ui:search-iterator/>
 			
 		</liferay-ui:search-container>	
-		
+</aui:form>		
 	
 		
 

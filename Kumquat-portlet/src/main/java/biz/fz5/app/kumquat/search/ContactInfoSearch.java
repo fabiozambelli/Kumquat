@@ -67,7 +67,7 @@ public class ContactInfoSearch extends SearchContainer<ContactInfo> {
 				portletRequest, "orderByCol");
 			String orderByType = ParamUtil.getString(
 				portletRequest, "orderByType");
-
+			
 			if (Validator.isNotNull(orderByCol) &&
 				Validator.isNotNull(orderByType)) {
 
@@ -87,7 +87,7 @@ public class ContactInfoSearch extends SearchContainer<ContactInfo> {
 			OrderByComparator orderByComparator =
 					ContactInfoLocalServiceUtil.getContactInfoOrderByComparator(
 					orderByCol, orderByType);
-
+			
 			setOrderableHeaders(orderableHeaders);
 			setOrderByCol(orderByCol);
 			setOrderByType(orderByType);

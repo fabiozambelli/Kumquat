@@ -11,9 +11,9 @@ public class ContactInfoLastNameComparator extends OrderByComparator {
 	 */
 	private static final long serialVersionUID = -237877016325978586L;
 
-	public static final String ORDER_BY_ASC = "name ASC";
+	public static final String ORDER_BY_ASC = "lastName ASC";
 
-	public static final String ORDER_BY_DESC = "name DESC";
+	public static final String ORDER_BY_DESC = "lastName DESC";
 		
 	public static final String[] ORDER_BY_FIELDS = {
 		"lastName"
@@ -43,4 +43,24 @@ public class ContactInfoLastNameComparator extends OrderByComparator {
 	}
 
 	private boolean _ascending;
+	
+	@Override
+	public boolean isAscending() {
+		return _ascending;
+	}
+	
+	@Override
+	public String getOrderBy() {
+		if (_ascending) {
+			return ORDER_BY_ASC;
+		}
+		else {
+			return ORDER_BY_DESC;
+		}
+	}
+
+	@Override
+	public String[] getOrderByFields() {
+		return ORDER_BY_FIELDS;
+	}
 }

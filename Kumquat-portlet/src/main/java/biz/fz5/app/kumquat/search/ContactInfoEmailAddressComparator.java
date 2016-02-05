@@ -11,9 +11,9 @@ public class ContactInfoEmailAddressComparator extends OrderByComparator {
 	 */
 	private static final long serialVersionUID = 4579250515640707648L;
 	
-	public static final String ORDER_BY_ASC = "name ASC";
+	public static final String ORDER_BY_ASC = "emailAddress ASC";
 
-	public static final String ORDER_BY_DESC = "name DESC";
+	public static final String ORDER_BY_DESC = "emailAddress DESC";
 		
 	public static final String[] ORDER_BY_FIELDS = {
 		"emailAddress"
@@ -43,4 +43,24 @@ public class ContactInfoEmailAddressComparator extends OrderByComparator {
 	}
 
 	private boolean _ascending;
+	
+	@Override
+	public boolean isAscending() {
+		return _ascending;
+	}
+	
+	@Override
+	public String getOrderBy() {
+		if (_ascending) {
+			return ORDER_BY_ASC;
+		}
+		else {
+			return ORDER_BY_DESC;
+		}
+	}
+
+	@Override
+	public String[] getOrderByFields() {
+		return ORDER_BY_FIELDS;
+	}
 }

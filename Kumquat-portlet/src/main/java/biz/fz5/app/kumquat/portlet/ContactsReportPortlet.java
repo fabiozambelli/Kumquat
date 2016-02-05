@@ -59,8 +59,9 @@ public class ContactsReportPortlet extends MVCPortlet {
 	public void setGroup (ActionRequest actionRequest,
 			ActionResponse actionResponse) throws IOException, PortletException {
 		
-		String contactGroupId = ParamUtil.getString(actionRequest, "contactGroupId");		
-		actionRequest.setAttribute("contactGroupId", Long.parseLong(contactGroupId));
+		String contactGroupId = ParamUtil.getString(actionRequest, "contactGroupId");	
+		if ( (contactGroupId!=null)&&(!"".equals(contactGroupId)) )
+			actionRequest.setAttribute("contactGroupId", Long.parseLong(contactGroupId));
 		
 	}
 	
