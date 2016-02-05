@@ -31,6 +31,7 @@
 
 <liferay-theme:defineObjects/>
 
+
 <% 
 // utils
 SimpleDateFormat dateFormat = new SimpleDateFormat( "dd-MM-yyyy HH:mm");
@@ -177,7 +178,8 @@ if (contactGroupId>-1) {
 				<liferay-ui:search-container-column-text name="last-name" orderable="<%= true %>" property="lastName"/>
 				<liferay-ui:search-container-column-text name="first-name" property="firstName"/>
 				<liferay-ui:search-container-column-text name="email-address" orderable="<%= true %>" property="emailAddress"/>
-				<liferay-ui:search-container-column-text name="telephone-number" property="telephoneNumber"/>			
+				<liferay-ui:search-container-column-text name="telephone-number" property="telephoneNumber"/>	
+				<liferay-ui:search-container-column-jsp path="/admin/actions.jsp" align="right"/>		
 			</liferay-ui:search-container-row>
 		
 			<liferay-ui:search-iterator/>

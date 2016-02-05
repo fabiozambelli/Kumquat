@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 
 import biz.fz5.app.kumquat.model.ContactInfo;
-import biz.fz5.app.kumquat.portlet.ContactsReportPortlet;
 import biz.fz5.app.kumquat.search.ContactInfoEmailAddressComparator;
 import biz.fz5.app.kumquat.search.ContactInfoLastNameComparator;
 import biz.fz5.app.kumquat.service.ContactInfoLocalServiceUtil;
@@ -125,7 +124,17 @@ public class ContactInfoLocalServiceImpl extends ContactInfoLocalServiceBaseImpl
 		
 	}
 	
-	
+	/**
+	 * Remoce contact info item
+	 */	
+	public void remove (long contactInfoId) throws PortalException, SystemException {
+		
+		contactInfoPersistence.remove(contactInfoId);								
+	}
+
+	/**
+	 * Search contact info items
+	 */
 	public List<ContactInfo> search (long companyId, long groupId , long contactGroupId, String lastName, 
 			String emailAddress, boolean isAndOperator, OrderByComparator orderByComparator) throws SystemException {
 		

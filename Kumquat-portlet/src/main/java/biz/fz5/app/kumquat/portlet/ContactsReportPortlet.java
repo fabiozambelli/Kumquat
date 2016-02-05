@@ -12,6 +12,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -32,10 +33,7 @@ import java.util.TreeMap;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -84,9 +82,7 @@ public class ContactsReportPortlet extends MVCPortlet {
 		
 		_log.debug("rootFolderId:"+rootFolderId);
 		_log.debug("contactGroupId:"+contactGroupId);
-		
-
-		
+				
 		try {
 			
 			ServiceContext serviceContext = ServiceContextFactory
@@ -206,5 +202,37 @@ public class ContactsReportPortlet extends MVCPortlet {
 
 		return fileEntry;
 	}
+	
+	
+	/**
+	 * 
+	 * Remove contact info item
+	 * @param actionRequest
+	 * @param actionResponse
+	 * @throws IOException
+	 * @throws PortletException
+	 */
+	public void processRemove (ActionRequest actionRequest, ActionResponse actionResponse) 
+			throws IOException, PortletException {
+			
+			String primKey = ParamUtil.getString(actionRequest, "primKey");
+			
+			if (Validator.isNotNull(primKey) && Validator.isNumber(primKey)) {
+				
+				try {
+					ContactInfoLocalServiceUtil.remove(Long.parseLong(primKey));
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (PortalException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SystemException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}
 
 }
