@@ -6,4 +6,8 @@
 	<category name="category.tools">
 		<portlet id="contacts-form"></portlet>		
 	</category>
+	<category name="category.hidden">
+		<portlet id="contacts-report"></portlet>
+		<portlet id="group-configuration"></portlet>
+	</category>	
 </display>
